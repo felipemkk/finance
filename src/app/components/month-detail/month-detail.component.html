@@ -1,0 +1,56 @@
+<div class="month-detail-container">
+  <div class="month-summary-cards">
+    <div class="summary-card income">
+      <h4>Total Receitas</h4>
+      <div class="amount">{{ formatCurrency(monthlyBalance.totalIncome) }}</div>
+    </div>
+    <div class="summary-card expense">
+      <h4>Total Despesas</h4>
+      <div class="amount">{{ formatCurrency(monthlyBalance.totalExpenses) }}</div>
+    </div>
+    <div class="summary-card balance" [class]="getBalanceClass(monthlyBalance.balance)">
+      <h4>Saldo do Mês</h4>
+      <div class="amount">{{ formatCurrency(monthlyBalance.balance) }}</div>
+    </div>
+  </div>
+
+  <div class="transactions-container" *ngIf="monthlyBalance.transactions.length > 0">
+    <h3>Transações do Mês</h3>
+    <div class="daily-transactions">
+      <div 
+        *ngFor="let dayGroup of getGroupedTransactions()" 
+        class="day-group"
+      >
+        <div class="day-header">
+          <h4 class="day-date">{{ formatDate(dayGroup.date) }}</h4>
+          <div class="day-balance" [class]="dayGroup.balance >= 0 ? 'positive' : 'negative'">
+            Saldo do dia: {{ formatCurrency(dayGroup.balance) }}
+          </div>
+        </div>
+        
+        <div class="transactions-list">
+          <div 
+            *ngFor="let transaction of dayGroup.transactions" 
+            class="transaction-item"
+            [class]="getTransactionClass(transaction)"
+          >
+            <div class="transaction-info">
+              <div class="transaction-description">{{ transaction.description }}</div>
+              <div class="transaction-category" *ngIf="transaction.category">
+                {{ transaction.category }}
+              </div>
+            </div>
+            <div class="transaction-amount">
+              {{ transaction.type === 'income' ? '+' : '-' }}{{ formatCurrency(transaction.amount) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-transactions" *ngIf="monthlyBalance.transactions.length === 0">
+    <p>Nenhuma transação registrada neste mês.</p>
+    <p>Clique nos botões acima para adicionar receitas ou despesas.</p>
+  </div>
+</div> 

@@ -1,0 +1,245 @@
+.add-transaction-container {
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 25px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 15px 15px 0 0;
+
+        h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+
+    .transaction-form {
+        padding: 25px;
+
+        .form-group {
+            margin-bottom: 20px;
+
+            label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 600;
+                color: #2c3e50;
+                font-size: 0.95rem;
+            }
+
+            input,
+            select {
+                width: 100%;
+                padding: 12px 15px;
+                border: 2px solid #e9ecef;
+                border-radius: 8px;
+                font-size: 1rem;
+                transition: border-color 0.3s ease, box-shadow 0.3s ease;
+                box-sizing: border-box;
+
+                &:focus {
+                    outline: none;
+                    border-color: #667eea;
+                    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+                }
+
+                &::placeholder {
+                    color: #adb5bd;
+                }
+
+                &:disabled {
+                    background-color: #f8f9fa;
+                    color: #6c757d;
+                    cursor: not-allowed;
+                }
+            }
+
+            .category-selector {
+                display: flex;
+                gap: 10px;
+                align-items: flex-end;
+
+                select {
+                    flex: 1;
+                }
+
+                .new-category-btn {
+                    padding: 12px 15px;
+                    background: #6c757d;
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    white-space: nowrap;
+
+                    &:hover {
+                        background: #5a6268;
+                        transform: translateY(-1px);
+                    }
+
+                    &.active {
+                        background: #dc3545;
+
+                        &:hover {
+                            background: #c82333;
+                        }
+                    }
+                }
+            }
+
+            .new-category-input {
+                display: flex;
+                gap: 10px;
+                margin-top: 10px;
+                padding: 15px;
+                background: #f8f9fa;
+                border-radius: 8px;
+                border: 1px solid #e9ecef;
+
+                input {
+                    flex: 1;
+                    margin: 0;
+                }
+
+                .add-category-btn {
+                    padding: 12px 20px;
+                    background: #28a745;
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    white-space: nowrap;
+
+                    &:hover:not(:disabled) {
+                        background: #218838;
+                        transform: translateY(-1px);
+                    }
+
+                    &:disabled {
+                        background: #6c757d;
+                        cursor: not-allowed;
+                        transform: none;
+                    }
+                }
+            }
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+
+            .btn {
+                flex: 1;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 8px;
+                font-size: 1rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+
+                &.btn-secondary {
+                    background: #6c757d;
+                    color: white;
+
+                    &:hover {
+                        background: #5a6268;
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+                    }
+                }
+
+                &.btn-primary {
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    color: white;
+
+                    &:hover:not(:disabled) {
+                        background: linear-gradient(135deg, #5a6fd8, #6a4190);
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+                    }
+
+                    &:disabled {
+                        background: #adb5bd;
+                        cursor: not-allowed;
+                        transform: none;
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .add-transaction-container {
+        .modal-header {
+            padding: 15px 20px;
+
+            h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+        .transaction-form {
+            padding: 20px;
+
+            .form-group {
+                .category-selector {
+                    flex-direction: column;
+                    align-items: stretch;
+
+                    .new-category-btn {
+                        align-self: flex-start;
+                    }
+                }
+
+                .new-category-input {
+                    flex-direction: column;
+
+                    .add-category-btn {
+                        align-self: flex-start;
+                    }
+                }
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    }
+}
