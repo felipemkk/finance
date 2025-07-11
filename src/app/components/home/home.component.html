@@ -1,0 +1,71 @@
+<div class="home-container">
+  <!-- Menu Lateral -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Finance</h2>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- Botão Store FL -->
+      <div class="nav-item">
+        <button class="nav-button" (click)="navigateToStore()">
+          <i class="fas fa-store"></i>
+          <span>Store FL</span>
+          <i class="fas fa-chevron-down" [class.rotated]="showStoreSubmenu"></i>
+        </button>
+
+        <!-- Submenu Store FL -->
+        <div class="submenu" [class.show]="showStoreSubmenu">
+          <button class="submenu-button" (click)="navigateToClientes()">
+            <i class="fas fa-users"></i>
+            <span>Clientes</span>
+          </button>
+          <button class="submenu-button" (click)="navigateToPagamentos()">
+            <i class="fas fa-credit-card"></i>
+            <span>Pagamentos</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Botão Pessoal -->
+      <div class="nav-item">
+        <button class="nav-button" (click)="navigateToPessoal()">
+          <i class="fas fa-user"></i>
+          <span>Pessoal</span>
+        </button>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Área de Conteúdo -->
+  <main class="content-area">
+    <div class="content-wrapper">
+      <!-- Página de Boas-vindas (apenas na rota home) -->
+      <div class="welcome-section" *ngIf="isHomePage()">
+        <div class="welcome-content">
+          <h1>Bem-vindo ao Finance</h1>
+          <p>Selecione uma opção no menu lateral para começar.</p>
+          <div class="welcome-cards">
+            <div class="welcome-card">
+              <i class="fas fa-store"></i>
+              <h3>Store FL</h3>
+              <p>Gerencie clientes e pagamentos do seu empreendimento</p>
+            </div>
+            <div
+              class="welcome-card"
+              routerLink="/pessoal"
+              style="cursor: pointer"
+            >
+              <i class="fas fa-user"></i>
+              <h3>Pessoal</h3>
+              <p>Controle suas finanças pessoais</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RouterOutlet para renderizar os componentes -->
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

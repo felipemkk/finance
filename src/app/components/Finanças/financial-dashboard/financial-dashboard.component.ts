@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MonthlyBalance } from '../../models/transaction.model';
-import { FinancialService } from '../../services/financial.service';
+import { MonthlyBalance } from '../../../models/transaction.model';
+import { FinancialService } from '../../../services/financial.service';
 import { AddTransactionComponent } from '../add-transaction/add-transaction.component';
 import { MonthDetailComponent } from '../month-detail/month-detail.component';
 

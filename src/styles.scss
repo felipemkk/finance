@@ -126,3 +126,20 @@ body {
 .p-5 {
     padding: 3rem;
 }
+
+a {
+    color: inherit;              /* Usa a cor herdada (ex: da div ou body) */
+    text-decoration: none;       /* Remove sublinhado */
+  }
+  
+  a:visited {
+    color: inherit;              /* Evita roxo após clicar */
+  }
+  
+  a:focus,
+  a:hover,
+  a:active {
+    color: inherit;              /* Mantém a mesma cor em todos os estados */
+    text-decoration: none;       /* Remove sublinhado em hover/focus */
+    outline: none;               /* Remove a borda azul no foco (opcional) */
+  }

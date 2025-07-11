@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { MonthlyBalance, Transaction } from '../../models/transaction.model';
+import { MonthlyBalance, Transaction } from '../../../models/transaction.model';
 
 @Component({
   selector: 'app-month-detail',

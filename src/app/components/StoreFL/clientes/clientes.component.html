@@ -1,0 +1,59 @@
+<div class="clientes-container">
+  <div class="header">
+    <h2>Gerenciamento de Clientes</h2>
+    <button class="btn-add">
+      <a href="/home"><i class="fas fa-home"></i> Home</a>
+    </button>
+    <button class="btn-add" (click)="adicionarCliente()">
+      <i class="fas fa-plus"></i> Novo Cliente
+    </button>
+  </div>
+
+  <div class="table-container">
+    <table class="clientes-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes" class="cliente-row">
+          <td>{{ cliente.id }}</td>
+          <td>{{ cliente.nome }}</td>
+          <td>{{ cliente.email }}</td>
+          <td>{{ cliente.telefone }}</td>
+          <td>
+            <span
+              class="status-badge"
+              [class.ativo]="cliente.status === 'Ativo'"
+              [class.inativo]="cliente.status === 'Inativo'"
+            >
+              {{ cliente.status }}
+            </span>
+          </td>
+          <td class="acoes">
+            <button
+              class="btn-edit"
+              (click)="editarCliente(cliente)"
+              title="Editar"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+            <button
+              class="btn-delete"
+              (click)="excluirCliente(cliente)"
+              title="Excluir"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

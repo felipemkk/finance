@@ -1,0 +1,99 @@
+<div class="pagamentos-container">
+  <div class="header">
+    <h2>Gerenciamento de Pagamentos</h2>
+    <button class="btn-add">
+      <a href="/home"><i class="fas fa-home"></i> Home</a>
+    </button>
+    <button class="btn-add" (click)="adicionarPagamento()">
+      <i class="fas fa-plus"></i> Novo Pagamento
+    </button>
+  </div>
+
+  <!-- Cards de Resumo -->
+  <div class="resumo-cards">
+    <div class="card">
+      <div class="card-icon">
+        <i class="fas fa-dollar-sign"></i>
+      </div>
+      <div class="card-content">
+        <h3>Total Pago</h3>
+        <p class="valor">R$ {{ getTotalPagamentos() | number : "1.2-2" }}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <i class="fas fa-clock"></i>
+      </div>
+      <div class="card-content">
+        <h3>Pendente</h3>
+        <p class="valor">R$ {{ getTotalPendente() | number : "1.2-2" }}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">
+        <i class="fas fa-list"></i>
+      </div>
+      <div class="card-content">
+        <h3>Total de Pagamentos</h3>
+        <p class="valor">{{ pagamentos.length }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabela de Pagamentos -->
+  <div class="table-container">
+    <table class="pagamentos-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Valor</th>
+          <th>Data</th>
+          <th>Método</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pagamento of pagamentos" class="pagamento-row">
+          <td>{{ pagamento.id }}</td>
+          <td>{{ pagamento.cliente }}</td>
+          <td class="valor-cell">
+            R$ {{ pagamento.valor | number : "1.2-2" }}
+          </td>
+          <td>{{ pagamento.data | date : "dd/MM/yyyy" }}</td>
+          <td>{{ pagamento.metodo }}</td>
+          <td>
+            <span
+              class="status-badge"
+              [class.pago]="pagamento.status === 'Pago'"
+              [class.pendente]="pagamento.status === 'Pendente'"
+              [class.cancelado]="pagamento.status === 'Cancelado'"
+              [class.estornado]="pagamento.status === 'Estornado'"
+            >
+              {{ pagamento.status }}
+            </span>
+          </td>
+          <td class="acoes">
+            <button
+              class="btn-edit"
+              (click)="editarPagamento(pagamento)"
+              title="Editar"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+            <button
+              class="btn-delete"
+              (click)="excluirPagamento(pagamento)"
+              title="Excluir"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

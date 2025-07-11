@@ -2,11 +2,17 @@
   <header class="dashboard-header">
     <h1>Acompanhamento Financeiro {{ currentYear }}</h1>
     <div class="action-buttons">
-      <button class="btn btn-income" (click)="showAddTransactionModal('income')">
+      <button
+        class="btn btn-income"
+        (click)="showAddTransactionModal('income')"
+      >
         <span class="icon">+</span>
         Incluir Receita
       </button>
-      <button class="btn btn-expense" (click)="showAddTransactionModal('expense')">
+      <button
+        class="btn btn-expense"
+        (click)="showAddTransactionModal('expense')"
+      >
         <span class="icon">+</span>
         Incluir Despesa
       </button>
@@ -15,8 +21,8 @@
 
   <main class="dashboard-content">
     <div class="months-grid">
-      <div 
-        *ngFor="let balance of monthlyBalances; let i = index" 
+      <div
+        *ngFor="let balance of monthlyBalances; let i = index"
         class="month-card"
         [class.expanded]="expandedMonth === i"
         [class.current-month]="i === currentMonth"
@@ -24,22 +30,29 @@
         <div class="month-header" (click)="toggleMonthDetail(i)">
           <div class="month-info">
             <h3 class="month-name">{{ monthNames[i] }}</h3>
-            <div class="month-balance" [class]="getBalanceClass(balance.balance)">
+            <div
+              class="month-balance"
+              [class]="getBalanceClass(balance.balance)"
+            >
               {{ formatCurrency(balance.balance) }}
             </div>
           </div>
           <div class="month-summary">
             <div class="summary-item income">
               <span class="label">Receitas:</span>
-              <span class="value">{{ formatCurrency(balance.totalIncome) }}</span>
+              <span class="value">{{
+                formatCurrency(balance.totalIncome)
+              }}</span>
             </div>
             <div class="summary-item expense">
               <span class="label">Despesas:</span>
-              <span class="value">{{ formatCurrency(balance.totalExpenses) }}</span>
+              <span class="value">{{
+                formatCurrency(balance.totalExpenses)
+              }}</span>
             </div>
           </div>
           <button class="expand-btn" [class.expanded]="expandedMonth === i">
-            <span class="icon">{{ expandedMonth === i ? '−' : '+' }}</span>
+            <span class="icon">{{ expandedMonth === i ? "−" : "+" }}</span>
           </button>
         </div>
 
@@ -51,7 +64,11 @@
   </main>
 
   <!-- Modal para adicionar transação -->
-  <div class="modal-overlay" *ngIf="showAddTransaction" (click)="onCloseModal()">
+  <div
+    class="modal-overlay"
+    *ngIf="showAddTransaction"
+    (click)="onCloseModal()"
+  >
     <div class="modal-content" (click)="$event.stopPropagation()">
       <app-add-transaction
         [type]="transactionType"

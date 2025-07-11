@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Category } from '../../models/transaction.model';
-import { FinancialService } from '../../services/financial.service';
+import { Category } from '../../../models/transaction.model';
+import { FinancialService } from '../../../services/financial.service';
 
 @Component({
   selector: 'app-add-transaction',
