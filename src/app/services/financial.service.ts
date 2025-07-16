@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Category, MonthlyBalance, Transaction } from '../models/transaction.model';
+import {
+  Category,
+  MonthlyBalance,
+  Transaction,
+} from '../models/transaction.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FinancialService {
   private transactions = new BehaviorSubject<Transaction[]>([]);
@@ -23,9 +27,9 @@ export class FinancialService {
     const newTransaction: Transaction = {
       ...transaction,
       id: this.generateId(),
-      createdAt: new Date()
+      createdAt: new Date(),
     };
-    
+
     const currentTransactions = this.transactions.value;
     this.transactions.next([...currentTransactions, newTransaction]);
     this.saveToLocalStorage();
@@ -33,7 +37,7 @@ export class FinancialService {
 
   deleteTransaction(id: string): void {
     const currentTransactions = this.transactions.value;
-    this.transactions.next(currentTransactions.filter(t => t.id !== id));
+    this.transactions.next(currentTransactions.filter((t) => t.id !== id));
     this.saveToLocalStorage();
   }
 
@@ -45,9 +49,9 @@ export class FinancialService {
   addCategory(category: Omit<Category, 'id'>): void {
     const newCategory: Category = {
       ...category,
-      id: this.generateId()
+      id: this.generateId(),
     };
-    
+
     const currentCategories = this.categories.value;
     this.categories.next([...currentCategories, newCategory]);
     this.saveToLocalStorage();
@@ -55,16 +59,16 @@ export class FinancialService {
 
   // Métodos para cálculos mensais
   getMonthlyBalance(month: number, year: number): MonthlyBalance {
-    const monthTransactions = this.transactions.value.filter(t => 
-      t.date.getMonth() === month && t.date.getFullYear() === year
+    const monthTransactions = this.transactions.value.filter(
+      (t) => t.date.getMonth() === month && t.date.getFullYear() === year
     );
 
     const totalIncome = monthTransactions
-      .filter(t => t.type === 'income')
+      .filter((t) => t.type === 'income')
       .reduce((sum, t) => sum + t.amount, 0);
 
     const totalExpenses = monthTransactions
-      .filter(t => t.type === 'expense')
+      .filter((t) => t.type === 'expense')
       .reduce((sum, t) => sum + t.amount, 0);
 
     return {
@@ -73,7 +77,9 @@ export class FinancialService {
       totalIncome,
       totalExpenses,
       balance: totalIncome - totalExpenses,
-      transactions: monthTransactions.sort((a, b) => b.date.getTime() - a.date.getTime())
+      transactions: monthTransactions.sort(
+        (a, b) => b.date.getTime() - a.date.getTime()
+      ),
     };
   }
 
@@ -99,7 +105,7 @@ export class FinancialService {
       { id: '5', name: 'Educação', color: '#FFEAA7' },
       { id: '6', name: 'Lazer', color: '#DDA0DD' },
       { id: '7', name: 'Vestuário', color: '#98D8C8' },
-      { id: '8', name: 'Outros', color: '#F7DC6F' }
+      { id: '8', name: 'Outros', color: '#F7DC6F' },
     ];
 
     if (this.categories.value.length === 0) {
@@ -108,8 +114,14 @@ export class FinancialService {
   }
 
   private saveToLocalStorage(): void {
-    localStorage.setItem('finance_transactions', JSON.stringify(this.transactions.value));
-    localStorage.setItem('finance_categories', JSON.stringify(this.categories.value));
+    localStorage.setItem(
+      'finance_transactions',
+      JSON.stringify(this.transactions.value)
+    );
+    localStorage.setItem(
+      'finance_categories',
+      JSON.stringify(this.categories.value)
+    );
   }
 
   private loadFromLocalStorage(): void {
@@ -120,7 +132,7 @@ export class FinancialService {
       const transactions = JSON.parse(savedTransactions).map((t: any) => ({
         ...t,
         date: new Date(t.date),
-        createdAt: new Date(t.createdAt)
+        createdAt: new Date(t.createdAt),
       }));
       this.transactions.next(transactions);
     }
@@ -129,4 +141,4 @@ export class FinancialService {
       this.categories.next(JSON.parse(savedCategories));
     }
   }
-} 
+}

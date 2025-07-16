@@ -6,13 +6,31 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './clientes.component.html',
-  styleUrl: './clientes.component.scss'
+  styleUrl: './clientes.component.scss',
 })
 export class ClientesComponent {
   clientes = [
-    { id: 1, nome: 'João Silva', email: 'joao@email.com', telefone: '(11) 99999-9999', status: 'Ativo' },
-    { id: 2, nome: 'Maria Santos', email: 'maria@email.com', telefone: '(11) 88888-8888', status: 'Ativo' },
-    { id: 3, nome: 'Pedro Costa', email: 'pedro@email.com', telefone: '(11) 77777-7777', status: 'Inativo' }
+    {
+      id: 1,
+      nome: 'João Silva',
+      email: 'joao@email.com',
+      telefone: '(11) 99999-9999',
+      status: 'Ativo',
+    },
+    {
+      id: 2,
+      nome: 'Maria Santos',
+      email: 'maria@email.com',
+      telefone: '(11) 88888-8888',
+      status: 'Ativo',
+    },
+    {
+      id: 3,
+      nome: 'Pedro Costa',
+      email: 'pedro@email.com',
+      telefone: '(11) 77777-7777',
+      status: 'Inativo',
+    },
   ];
 
   adicionarCliente() {

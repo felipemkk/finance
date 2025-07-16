@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Category } from '../../../models/transaction.model';
-import { FinancialService } from '../../../services/financial.service';
+import { TransactionsService, ApiTransaction } from '../../../services/transactions.service';
 
 @Component({
   selector: 'app-add-transaction',
@@ -24,17 +24,26 @@ export class AddTransactionComponent implements OnInit {
   newCategoryName = '';
   showNewCategoryInput = false;
   categories: Category[] = [];
+  loading = false;
 
-  constructor(private financialService: FinancialService) {}
+  constructor(private transactionsService: TransactionsService) {}
 
   ngOnInit(): void {
     this.loadCategories();
   }
 
   loadCategories(): void {
-    this.financialService.getCategories().subscribe(categories => {
-      this.categories = categories;
-    });
+    // Por enquanto, vamos usar categorias padrão
+    this.categories = [
+      { id: '1', name: 'Alimentação', color: '#FF6B6B' },
+      { id: '2', name: 'Transporte', color: '#4ECDC4' },
+      { id: '3', name: 'Moradia', color: '#45B7D1' },
+      { id: '4', name: 'Saúde', color: '#96CEB4' },
+      { id: '5', name: 'Educação', color: '#FFEAA7' },
+      { id: '6', name: 'Lazer', color: '#DDA0DD' },
+      { id: '7', name: 'Vestuário', color: '#98D8C8' },
+      { id: '8', name: 'Outros', color: '#F7DC6F' }
+    ];
   }
 
   onSubmit(): void {
@@ -42,17 +51,29 @@ export class AddTransactionComponent implements OnInit {
       return;
     }
 
-    const transactionData = {
-      date: new Date(this.date),
-      description: this.description,
-      amount: this.amount,
+    this.loading = true;
+
+    const transactionData: ApiTransaction = {
       type: this.type,
+      amount: this.amount,
+      description: this.description,
+      transaction_date: this.date,
       category: this.type === 'expense' ? this.category : undefined
     };
 
-    this.financialService.addTransaction(transactionData);
-    this.resetForm();
-    this.transactionAdded.emit();
+    this.transactionsService.criarTransaction(transactionData).subscribe({
+      next: (response) => {
+        console.log('Transação criada com sucesso:', response);
+        this.resetForm();
+        this.transactionAdded.emit();
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Erro ao criar transação:', error);
+        this.loading = false;
+        // Você pode adicionar um toast ou alert aqui para mostrar o erro
+      }
+    });
   }
 
   onCancel(): void {
@@ -62,13 +83,16 @@ export class AddTransactionComponent implements OnInit {
 
   addNewCategory(): void {
     if (this.newCategoryName.trim()) {
-      this.financialService.addCategory({
+      // Por enquanto, vamos apenas adicionar à lista local
+      const newCategory: Category = {
+        id: Date.now().toString(),
         name: this.newCategoryName.trim(),
         color: this.getRandomColor()
-      });
+      };
+      
+      this.categories.push(newCategory);
       this.newCategoryName = '';
       this.showNewCategoryInput = false;
-      this.loadCategories();
     }
   }
 
@@ -96,4 +120,4 @@ export class AddTransactionComponent implements OnInit {
     ];
     return colors[Math.floor(Math.random() * colors.length)];
   }
-} 
+}

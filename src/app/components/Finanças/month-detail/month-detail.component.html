@@ -22,7 +22,7 @@
         class="day-group"
       >
         <div class="day-header">
-          <h4 class="day-date">{{ formatDate(dayGroup.date) }}</h4>
+          <h4 class="day-date">{{ formatDate(dayGroup.date.toISOString()) }}</h4>
           <div class="day-balance" [class]="dayGroup.balance >= 0 ? 'positive' : 'negative'">
             Saldo do dia: {{ formatCurrency(dayGroup.balance) }}
           </div>
@@ -53,4 +53,4 @@
     <p>Nenhuma transação registrada neste mês.</p>
     <p>Clique nos botões acima para adicionar receitas ou despesas.</p>
   </div>
-</div> 
+</div>

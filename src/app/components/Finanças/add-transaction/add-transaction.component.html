@@ -86,12 +86,13 @@
     </div>
 
     <div class="form-actions">
-      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()" [disabled]="loading">
         Cancelar
       </button>
-      <button type="submit" class="btn btn-primary" [disabled]="!description || amount <= 0">
-        {{ type === 'income' ? 'Adicionar Receita' : 'Adicionar Despesa' }}
+      <button type="submit" class="btn btn-primary" [disabled]="!description || amount <= 0 || loading">
+        <span *ngIf="loading">Salvando...</span>
+        <span *ngIf="!loading">{{ type === 'income' ? 'Adicionar Receita' : 'Adicionar Despesa' }}</span>
       </button>
     </div>
   </form>
-</div> 
+</div>
